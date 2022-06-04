@@ -20,7 +20,11 @@ export class DialogEditUserComponent implements OnInit {
   }
 
   saveUser(){
-    this.firestore.collection('users').doc(this.userId).update(this.user.toJSON());
+    this.loading = true;
+    this.firestore.collection('users').doc(this.userId).update(this.user.toJSON()).then(() => {
+      this.loading = false;
+      this.dialogRef.close();
+    });
   }
 
 }
